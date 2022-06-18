@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login Form</title>
+<link th:href="@{/css/style.css}" rel="stylesheet">
+
+</head>
+<body> 
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span>Chat Application</span></div>
+        <form th:action="@{/login/logincheck}" th:object="${utilisateur}" method="get">
+  <p th:if="${error}" class="error">UserName & Password Incorrect</p>
+          <div class="row">
+           
+            <input type="text" name="mail">
+          </div>
+          <div class="row">
+            
+            <input type="password" name="motdepasse">
+          </div>
+            <select required th:field="*{role}">
+                <option value="" hidden>Select a role</option>
+                <option value="client" hidden>CLIENT</option>
+                <option value="admin" hidden>ADMIN</option>
+            </select>
+          <div class="row button">
+            <input type="submit" value="Login">
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </body>
+</html>

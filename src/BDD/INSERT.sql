@@ -1,10 +1,10 @@
-INSERT INTO utilisateur(id,mail,mdp,nom,prenom,role) VALUES(0,"admin","admin","admin","admin","admin");
+INSERT INTO utilisateur(id,mail,mdp,nom,prenom,role) VALUES(0,"admin","g83ai719c5ha9ei1ec533jec3i6b7","admin","admin","admin");
 
-INSERT INTO utilisateur(mail,mdp,nom,prenom) VALUES("u1@gmail.com","u1","u","1");
+INSERT INTO utilisateur(mail,mdp,nom,prenom) VALUES("u1@gmail.com","-dcdd6i3e28a78fh2ii2b1bj3cb1cc","u","1");
 
-INSERT INTO utilisateur(mail,mdp,nom,prenom) VALUES("u2@gmail.com","u2","u","2");
+INSERT INTO utilisateur(mail,mdp,nom,prenom) VALUES("u2@gmail.com","j6e24gf75ic32264f652d6fe08ggj","u","2");
 
-INSERT INTO utilisateur(mail,mdp,nom,prenom) VALUES("u3@gmail.com","u3","u","3");
+INSERT INTO utilisateur(mail,mdp,nom,prenom) VALUES("u3@gmail.com","213ce54b0h0jg934gh0gb0g1djf952","u","3");
 
 
 

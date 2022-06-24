@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS utilisateurcanal;
 CREATE TABLE utilisateur(
     id INT AUTO_INCREMENT PRIMARY KEY,
     mail VARCHAR(30) NOT NULL,
-    mdp VARCHAR(20) NOT NULL,
+    mdp VARCHAR(40) NOT NULL,
     nom VARCHAR(20) NOT NULL,
     prenom VARCHAR(20) NOT NULL,
     -- {client, admin}

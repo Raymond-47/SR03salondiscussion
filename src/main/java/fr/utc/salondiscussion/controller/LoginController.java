@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,7 +68,20 @@ public class LoginController {
 
 
         if (optionalUtilisateur.isPresent()){
-            if(optionalUtilisateur.get().getMotdepasse().equals(utilisateur.getMotdepasse())){
+            String passwordMD5 = null;
+            try {
+                BigInteger bigInteger = null;
+                String inputStr = utilisateur.getMotdepasse();
+                MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+                byte[] inputData = inputStr.getBytes();
+                messageDigest.update(inputData);
+                bigInteger = new BigInteger(messageDigest.digest());
+                passwordMD5 = bigInteger.toString(20);
+                System.out.println("new password" + passwordMD5);
+            }catch (Exception exception){
+                exception.printStackTrace();
+            }
+            if(optionalUtilisateur.get().getMotdepasse().equals(passwordMD5)){
                 if(optionalUtilisateur.get().getRole().equals("admin")){
                     if(utilisateur.getRole().equals("admin")){
                         Utilisateur newUtilisateur = new Utilisateur();

@@ -1,5 +1,6 @@
 package fr.utc.salondiscussion.controller;
 
+import fr.utc.salondiscussion.Security.AdminAuthenticationManager;
 import fr.utc.salondiscussion.dao.CanalRepository;
 import fr.utc.salondiscussion.dao.UtilisateurCanalRepository;
 import fr.utc.salondiscussion.dao.UtilisateurRepository;
@@ -7,6 +8,11 @@ import fr.utc.salondiscussion.model.Canal;
 import fr.utc.salondiscussion.model.Utilisateur;
 import fr.utc.salondiscussion.model.UtilisateurCanal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,22 +38,35 @@ public class LoginController {
     @Autowired
     private CanalRepository canalRepository;
 
-    @GetMapping("/")
+    private static final AdminAuthenticationManager adminAuthenticationManager = new AdminAuthenticationManager();
+
+    @GetMapping("/login")
     private String getLogin(Model model){
         Utilisateur utilisateur = new Utilisateur();
         utilisateur.setMail("admin");
         utilisateur.setMotdepasse("admin");
         model.addAttribute("utilisateur",utilisateur);
-//        return "loginpage";
+        //        contrôler sécurité
+        try{
+            Authentication request = new UsernamePasswordAuthenticationToken("admin","admin");
+            Authentication result = adminAuthenticationManager.authenticate(request);
+            SecurityContextHolder.getContext().setAuthentication(result);
+            System.out.println("Generate Token Successfully "+ SecurityContextHolder.getContext().getAuthentication());
+        } catch (AuthenticationException authenticationException){
+            System.out.println("Authentication failed: "+ authenticationException.getMessage());
+        }
         return "userlogin";
     }
 
 
 
-    @GetMapping("/logincheck")
+    @GetMapping("/admin/logincheck")
     private ModelAndView postLogin(@ModelAttribute Utilisateur utilisateur){
         System.out.println("user e-mail: "+ utilisateur.getMail()+" | password: "+utilisateur.getMotdepasse()+" | role: "+utilisateur.getRole());
         Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findByMail(utilisateur.getMail());
+
+
+
         if (optionalUtilisateur.isPresent()){
             if(optionalUtilisateur.get().getMotdepasse().equals(utilisateur.getMotdepasse())){
                 if(optionalUtilisateur.get().getRole().equals("admin")){
@@ -57,6 +76,10 @@ public class LoginController {
                         ModelAndView modelAndView = new ModelAndView("adminpage");
                         modelAndView.addObject("newUtilisateur",newUtilisateur);
                         modelAndView.addObject("utilisateurs",utilisateurRepository.findAll());
+
+
+
+
                         return modelAndView;
                     }else{
                         System.err.println("mode error");

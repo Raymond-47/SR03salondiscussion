@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -43,7 +44,11 @@ public class CanalController {
         List<Canal> listCanals = new ArrayList<>();
         List<UtilisateurCanal> utilisateurCanals = utilisateurCanalRepository.findByUtilisateur(userId);
         for(UtilisateurCanal utilisateurCanal: utilisateurCanals){
-            listCanals.add(canalRepository.findById(utilisateurCanal.getCanal()).get());
+            Canal canalTemp = canalRepository.findById(utilisateurCanal.getCanal()).get();
+            Date nowDate = new Date();
+            if(canalTemp.getDateExpire().getTime()>nowDate.getTime()){
+                listCanals.add(canalTemp);
+            }
         }
         System.out.println(listCanals);
         modelAndView.addObject("canals", listCanals);
@@ -64,7 +69,12 @@ public class CanalController {
         List<Canal> listCanals = new ArrayList<>();
         List<UtilisateurCanal> utilisateurCanals = utilisateurCanalRepository.findByUtilisateur(userId);
         for(UtilisateurCanal utilisateurCanal: utilisateurCanals){
-            listCanals.add(canalRepository.findById(utilisateurCanal.getCanal()).get());
+            Canal canalTemp = canalRepository.findById(utilisateurCanal.getCanal()).get();
+            Date nowDate = new Date();
+            if(canalTemp.getDateExpire().getTime()>nowDate.getTime()){
+                listCanals.add(canalTemp);
+            }
+
         }
         System.out.println(listCanals);
         modelAndView.addObject("canals", listCanals);

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,7 +73,11 @@ public class LoginController {
                         List<Canal> listCanals = new ArrayList<>();
                         List<UtilisateurCanal> utilisateurCanals = utilisateurCanalRepository.findByUtilisateur(userId);
                         for(UtilisateurCanal utilisateurCanal: utilisateurCanals){
-                            listCanals.add(canalRepository.findById(utilisateurCanal.getCanal()).get());
+                            Canal canalTemp = canalRepository.findById(utilisateurCanal.getCanal()).get();
+                            Date nowDate = new Date();
+                            if(canalTemp.getDateExpire().getTime()>nowDate.getTime()){
+                                listCanals.add(canalTemp);
+                            }
                         }
                         modelAndView.addObject("canals", listCanals);
 

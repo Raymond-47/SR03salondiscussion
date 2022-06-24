@@ -1,6 +1,6 @@
 package fr.utc.salondiscussion.controller;
 
-import fr.utc.salondiscussion.Security.AdminAuthenticationManager;
+import fr.utc.salondiscussion.security.AdminAuthenticationManager;
 import fr.utc.salondiscussion.dao.CanalRepository;
 import fr.utc.salondiscussion.dao.UtilisateurCanalRepository;
 import fr.utc.salondiscussion.dao.UtilisateurRepository;
@@ -8,7 +8,6 @@ import fr.utc.salondiscussion.model.Canal;
 import fr.utc.salondiscussion.model.Utilisateur;
 import fr.utc.salondiscussion.model.UtilisateurCanal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 

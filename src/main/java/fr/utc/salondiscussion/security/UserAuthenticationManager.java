@@ -1,4 +1,4 @@
-package fr.utc.salondiscussion.Security;
+package fr.utc.salondiscussion.security;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,10 +11,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminAuthenticationManager implements AuthenticationManager {
+public class UserAuthenticationManager implements AuthenticationManager {
     static final List<GrantedAuthority> AUTHORITIES = new ArrayList<>();
     static {
-        AUTHORITIES.add(new SimpleGrantedAuthority("ADMIN"));
+        AUTHORITIES.add(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
